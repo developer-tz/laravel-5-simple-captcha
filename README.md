@@ -51,7 +51,7 @@ Find the `aliases` key in `config/app.php`.
 
 To use your own settings, publish config.
 
-```$ php artisan config:publish developer-tz/simple-captcha```
+```$ php artisan vendor:publish```
 
 ## Example Usage
 
@@ -77,7 +77,7 @@ To use your own settings, publish config.
         }
 
         $content = Form::open(array(URL::to(Request::segment(1))));
-        $content .= '<p>' . HTML::image(Captcha::img(), 'Captcha image') . '</p>';
+        $content .= '<p>' . HTML::image(SimpleCaptcha::img(), 'Captcha image') . '</p>';
         $content .= '<p>' . Form::text('captcha') . '</p>';
         $content .= '<p>' . Form::submit('Check') . '</p>';
         $content .= '<p>' . Form::close() . '</p>';
