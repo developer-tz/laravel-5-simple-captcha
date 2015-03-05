@@ -1,0 +1,20 @@
+{
+    "name": "developer-tz/simple-captcha",
+    "description": "",
+    "authors": [
+        {
+            "name": "Aziz Abdulaziz",
+            "email": "4thebetter@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "5.0.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "DeveloperTz\\SimpleCaptcha": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
