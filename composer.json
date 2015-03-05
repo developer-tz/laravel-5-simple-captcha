@@ -1,6 +1,9 @@
 {
     "name": "developer-tz/simple-captcha",
-    "description": "",
+    "description": "Simple Captcha Service Provider for laravel 5",
+    "keywords": ["captcha","simple-captcha","laravel","laravel-5"],
+    "homepage": "https://github.com/developer-tz/laravel-5-simple-captcha",
+    "license": "MIT",
     "authors": [
         {
             "name": "Aziz Abdulaziz",
