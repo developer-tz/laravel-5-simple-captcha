@@ -26,7 +26,7 @@ class SimpleCaptchaServiceProvider extends ServiceProvider {
         require __DIR__ . '/../../routes.php';
         $this->app->validator->resolver(function ($translator, $data, $rules, $messages) 
         {
-            $messages['captcha'] = 'Invalid :attribute code. Enter the code that you see in the image below.';
+            $messages['captcha'] = trans('validation.captcha');
             return new CaptchaValidator($translator, $data, $rules, $messages);
         });
     }
