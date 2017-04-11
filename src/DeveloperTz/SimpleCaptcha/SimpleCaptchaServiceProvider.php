@@ -39,7 +39,10 @@ class SimpleCaptchaServiceProvider extends ServiceProvider {
 	public function register()
 	{		
 		$this->app['simple-captcha'] = $this->app->share(function ($app) {
-            return SimpleCaptcha::instance();
+            #return SimpleCaptcha::instance();
+            return new SimpleCaptcha(
+                $app['Illuminate\Session\Store']
+            );
         });
 	}
 

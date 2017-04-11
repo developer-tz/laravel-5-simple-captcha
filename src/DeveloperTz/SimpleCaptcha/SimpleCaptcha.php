@@ -1,7 +1,8 @@
 <?php namespace DeveloperTz\SimpleCaptcha;
 
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Session;
+#use Illuminate\Support\Facades\Session;
+use Illuminate\Session\Store as Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
@@ -30,10 +31,19 @@ class SimpleCaptcha
      * @var  Captcha config instance of the Captcha::$config object
      */
     protected $config = array();
-
+    private $session;
     private $assets;
     private $fonts = array();
     private $backgrounds = array();
+
+    public function __construct(Session $session)
+    {
+        $this->session = $session;
+        $this->config = config('captcha');
+        $this->assets = __DIR__ . '/../../../public/assets';
+        $this->fonts = $this->assets('fonts');
+        $this->backgrounds = $this->assets('backgrounds');
+    }
 
     public static function instance()
     {        
@@ -83,7 +93,8 @@ class SimpleCaptcha
         if (!$formId) {
             $formId = hash('sha256', URL::previous());
         }
-        Session::put('captchaHash.' . $formId, $this->hashMake($code));
+        $this->session->put('captchaHash.' . $formId, $this->hashMake($code));
+        $this->session->save();
 
         $bg_image = $this->asset('backgrounds');
 
@@ -206,7 +217,7 @@ class SimpleCaptcha
         if (!$formId) {
             $formId = hash('sha256', URL::previous());
         }
-        $captchaHash = Session::get('captchaHash.' . $formId);
+        $captchaHash = $this->session->get('captchaHash.' . $formId);
 
         $result = $value != null
             && $captchaHash != null
@@ -214,7 +225,7 @@ class SimpleCaptcha
             && $this->hashCheck($value, $captchaHash);
 
         // forget the hash to prevent replay
-        Session::forget('captchaHash');
+        $this->session->remove('captcha');
         return $result;
     }
 
